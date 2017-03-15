@@ -5,13 +5,65 @@ set nocompatible
 "fix loading of ftdetect scripts
 filetype off
 
-"activate pathogen
-call pathogen#runtime_append_all_bundles()
-call pathogen#helptags()
+"set the runtime path to include Vundle and initialize
+set rtp+=~/.vim/bundle/Vundle.vim
+call vundle#begin()
+" alternatively, pass a path where Vundle should install plugins
+"call vundle#begin('~/some/path/here')
+
+" let Vundle manage Vundle, required
+Plugin 'VundleVim/Vundle.vim'
+Plugin 'file:///home/aquaresima/.vim/bundle/a'
+Plugin 'file:///home/aquaresima/.vim/bundle/ack'
+Plugin 'file:///home/aquaresima/.vim/bundle/csapprox'
+Plugin 'file:///home/aquaresima/.vim/bundle/ctrlp'
+Plugin 'file:///home/aquaresima/.vim/bundle/delimitMate'
+Plugin 'file:///home/aquaresima/.vim/bundle/easymotion'
+Plugin 'file:///home/aquaresima/.vim/bundle/endwise'
+Plugin 'file:///home/aquaresima/.vim/bundle/fugitive'
+Plugin 'file:///home/aquaresima/.vim/bundle/gist'
+Plugin 'file:///home/aquaresima/.vim/bundle/git-runtime'
+Plugin 'file:///home/aquaresima/.vim/bundle/gitv'
+Plugin 'file:///home/aquaresima/.vim/bundle/gundo'
+Plugin 'file:///home/aquaresima/.vim/bundle/indexed-search'
+Plugin 'file:///home/aquaresima/.vim/bundle/localvimrc'
+Plugin 'file:///home/aquaresima/.vim/bundle/markdown-runtime'
+Plugin 'file:///home/aquaresima/.vim/bundle/matchit'
+Plugin 'file:///home/aquaresima/.vim/bundle/nerdcommenter'
+Plugin 'file:///home/aquaresima/.vim/bundle/nerdtree'
+Plugin 'file:///home/aquaresima/.vim/bundle/powerline'
+Plugin 'file:///home/aquaresima/.vim/bundle/ragtag'
+Plugin 'file:///home/aquaresima/.vim/bundle/rails'
+Plugin 'file:///home/aquaresima/.vim/bundle/repeat'
+Plugin 'file:///home/aquaresima/.vim/bundle/surround'
+Plugin 'file:///home/aquaresima/.vim/bundle/syntastic'
+Plugin 'file:///home/aquaresima/.vim/bundle/tabular'
+Plugin 'file:///home/aquaresima/.vim/bundle/tagbar'
+Plugin 'file:///home/aquaresima/.vim/bundle/ultisnips'
+Plugin 'file:///home/aquaresima/.vim/bundle/unimpaired'
+Plugin 'file:///home/aquaresima/.vim/bundle/vim-buffergator'
+Plugin 'file:///home/aquaresima/.vim/bundle/vim-dispatch'
+Plugin 'file:///home/aquaresima/.vim/bundle/vim-gitgutter'
+Plugin 'file:///home/aquaresima/.vim/bundle/vim-ruby'
+Plugin 'file:///home/aquaresima/.vim/bundle/vim-startify'
+Plugin 'file:///home/aquaresima/.vim/bundle/vimwiki'
+Plugin 'file:///home/aquaresima/.vim/bundle/webapi'
+Plugin 'file:///home/aquaresima/.vim/bundle/yankring'
+Plugin 'file:///home/aquaresima/.vim/bundle/YouCompleteMe'
+Plugin 'ervandew/supertab'
+Plugin 'vim-scripts/xptemplate'
+Plugin 'vim-scripts/grep.vim'
+Plugin 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plugin 'junegunn/fzf.vim'
+
+"All of your Plugins must be added before the following line
+call vundle#end()            " required
+filetype plugin indent on    " required
 
 "allow backspacing over everything in insert mode
 set backspace=indent,eol,start
 
+colorscheme desert
 "store lots of :cmdline history
 set history=1000
 
@@ -228,11 +280,14 @@ let g:UltiSnipsJumpBackwardTrigger="<c-k>"
 
 "YouCompleteMe
 let g:ycm_confirm_extra_conf=0
-nnoremap <leader>jd :YcmCompleter GoToDefinitionElseDeclaration<CR>
-
+nnoremap <leader>gl :YcmCompleter GoToDeclaration<CR>
+nnoremap <leader>gf :YcmCompleter GoToDefinition<CR>
+nnoremap <leader>gg :YcmCompleter GoToDefinitionElseDeclaration<CR>
+nnoremap <F11> :YcmForceCompileAndDiagnostics <CR>
 "ctrlp confs
 let g:ctrlp_follow_symlinks=1
-
+"fzf
+nnoremap <F7> :Tags <CR>
 "easymotion
 hi link EasyMotionTarget ErrorMsg
 hi link EasyMotionShade  Comment
@@ -255,7 +310,6 @@ autocmd BufWritePre * :%s/\s\+$//e
 if has("gui_running")
     "remove right scroll bar
     set guioptions-=r
-
     "turn off needless toolbar on gvim
     set guioptions-=T
 
@@ -266,7 +320,7 @@ if has("gui_running")
     "colorscheme github
     "colorscheme Tomorrow-Night-Bright
 
-    set guifont=Monospace\ 9
+    set guifont=Monospace\ 10
 else
     "colorscheme Tomorrow-Night-Bright
 endif
@@ -319,3 +373,43 @@ map <C-s> :w<cr>
 
 "clear highlight
 nnoremap <C-L> :nohlsearch<cr>
+
+"vim-instant-markdown
+let g:instant_markdown_autostart = 0
+
+
+"gvim tab handler
+" Move tabs left/right
+function! TabLeft()
+let tab_number = tabpagenr() - 1
+if tab_number == 0
+execute "tabm" tabpagenr('$') - 1
+else
+execute "tabm" tab_number - 1
+endif
+endfunction
+
+function! TabRight()
+let tab_number = tabpagenr() - 1
+let last_tab_number = tabpagenr('$') - 1
+if tab_number == last_tab_number
+execute "tabm" 0
+else
+execute "tabm" tab_number + 1
+endif
+endfunction
+
+nnoremap <silent><C-S-Right> :execute TabRight()<CR>
+nnoremap <silent><C-S-Left> :execute TabLeft()<CR>
+
+" Relative numbers
+function! NumberToggle()
+  if(&relativenumber == 1)
+    set rnu!
+  else
+    set relativenumber
+  endif
+endfunc
+
+nnoremap <C-n> :call NumberToggle()<cr>
+highlight Pmenu ctermfg=2 ctermbg=3 guifg=#ffffff guibg=#0000ff
