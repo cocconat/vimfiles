@@ -49,12 +49,20 @@ Plugin 'file:///home/aquaresima/.vim/bundle/vim-startify'
 Plugin 'file:///home/aquaresima/.vim/bundle/vimwiki'
 Plugin 'file:///home/aquaresima/.vim/bundle/webapi'
 Plugin 'file:///home/aquaresima/.vim/bundle/yankring'
-Plugin 'file:///home/aquaresima/.vim/bundle/YouCompleteMe'
+Plugin 'davidhalter/jedi'
+
+Plugin 'steffanc/cscopemaps.vim'
+
+Plugin 'tpope/vim-repeat'
+Plugin 'oblitum/YouCompleteMe'
 Plugin 'ervandew/supertab'
+Plugin 'vim-scripts/DoxygenToolkit.vim'
 Plugin 'vim-scripts/xptemplate'
 Plugin 'vim-scripts/grep.vim'
 Plugin 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plugin 'junegunn/fzf.vim'
+Plugin 'spacehi.vim'
+
 
 "All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -63,7 +71,6 @@ filetype plugin indent on    " required
 "allow backspacing over everything in insert mode
 set backspace=indent,eol,start
 
-colorscheme desert
 "store lots of :cmdline history
 set history=1000
 
@@ -124,6 +131,7 @@ filetype indent on
 
 "turn on syntax highlighting
 syntax on
+let g:syntastic_python_checkers = ['pyflakes']
 
 "some stuff to get the mouse going in term
 set mouse=a
@@ -223,14 +231,22 @@ function! SetupMake()
     endif
 endfunction
 
+"override run command for CMake projects install
+function! MakeInstall()
+    if filereadable("CMakeLists.txt") && filereadable("./build/Makefile")
+        set makeprg=make\ install\ -j8\ -C\ build
+    else
+        set makeprg=make\ install\ -j8
+    endif
+endfunction
 function! Compile()
     call SetupMake()
     make
 endfunction
 
 function! Run()
-    call SetupMake()
-    make run
+    call MakeInstall()
+    make
 endfunction
 
 "command for bulding local tags
@@ -279,11 +295,14 @@ let g:UltiSnipsJumpForwardTrigger="<c-j>"
 let g:UltiSnipsJumpBackwardTrigger="<c-k>"
 
 "YouCompleteMe
+let g:ycm_python_binary_path = '/usr/bin/python3'
+
 let g:ycm_confirm_extra_conf=0
 nnoremap <leader>gl :YcmCompleter GoToDeclaration<CR>
 nnoremap <leader>gf :YcmCompleter GoToDefinition<CR>
 nnoremap <leader>gg :YcmCompleter GoToDefinitionElseDeclaration<CR>
 nnoremap <F11> :YcmForceCompileAndDiagnostics <CR>
+
 "ctrlp confs
 let g:ctrlp_follow_symlinks=1
 "fzf
@@ -324,8 +343,6 @@ if has("gui_running")
 else
     "colorscheme Tomorrow-Night-Bright
 endif
-
-colorscheme koehler
 
 "customize sign column
 au BufEnter * highlight SignColumn ctermbg=black
@@ -412,4 +429,57 @@ function! NumberToggle()
 endfunc
 
 nnoremap <C-n> :call NumberToggle()<cr>
+
 highlight Pmenu ctermfg=2 ctermbg=3 guifg=#ffffff guibg=#0000ff
+highlight BlueLine guibg=Blue
+autocmd BufReadPost quickfix match BlueLine /\%1l/
+autocmd BufReadPost quickfix nnoremap <buffer> <CR> :execute 'match BlueLine /\%' . line('.') . 'l/'<CR><CR>
+
+function! SomeCheck()
+   if filereadable("./cscope.out")
+        cs add "./cscope.out"
+   endif
+endfunction
+
+
+" This is the default extra key bindings
+let g:fzf_action = {
+  \ 'ctrl-t': 'tab split',
+  \ 'ctrl-x': 'split',
+  \ 'ctrl-v': 'vsplit' }
+
+" Default fzf layout
+" - down / up / left / right
+let g:fzf_layout = { 'down': '~40%' }
+
+" In Neovim, you can set up fzf window using a Vim command
+let g:fzf_layout = { 'window': 'enew' }
+let g:fzf_layout = { 'window': '-tabnew' }
+
+" Customize fzf colors to match your color scheme
+let g:fzf_colors =
+\ { 'fg':      ['fg', 'Normal'],
+  \ 'bg':      ['bg', 'Normal'],
+  \ 'hl':      ['fg', 'Comment'],
+  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+  \ 'hl+':     ['fg', 'Statement'],
+  \ 'info':    ['fg', 'PreProc'],
+  \ 'prompt':  ['fg', 'Conditional'],
+  \ 'pointer': ['fg', 'Exception'],
+  \ 'marker':  ['fg', 'Keyword'],
+  \ 'spinner': ['fg', 'Label'],
+  \ 'header':  ['fg', 'Comment'] }
+
+colorscheme wombat
+
+"open a nice fzf window
+noremap <expr> <c-x><c-k> fzf#complete('cat /usr/share/dict/words')
+"save all open
+noremap  <c-q> :wa<CR>
+noremap  <c-a> :A <CR>
+
+nmap <c-t> "+gP
+imap <c-t> <ESC><c-t>i
+vmap <c-y> "+y
+set guifont=inconsolata\ 13

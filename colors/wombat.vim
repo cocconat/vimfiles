@@ -35,8 +35,8 @@ hi Visual		guifg=#f6f3e8 guibg=#444444 gui=none
 hi SpecialKey	guifg=#808080 guibg=#343434 gui=none
 
 " Syntax highlighting
-hi Comment 		guifg=#99968b gui=italic
-hi Todo 		guifg=#8f8f8f gui=italic
+hi Comment 		guifg=#99ccff gui=italic
+hi Todo 		guifg=#8f8f08 gui=italic
 hi Constant 	guifg=#e5786d gui=none
 hi String 		guifg=#95e454 gui=italic
 hi Identifier 	guifg=#cae682 gui=none
@@ -47,5 +47,7 @@ hi Keyword		guifg=#8ac6f2 gui=none
 hi PreProc 		guifg=#e5786d gui=none
 hi Number		guifg=#e5786d gui=none
 hi Special		guifg=#e7f6da gui=none
-
-
+hi def link cUserBracketCharacter Constant
+hi def link cUserSpecialCharacter Question
+hi Visual term=reverse cterm=reverse guibg=Grey
+hi Private guifg=#ffff66 gui=None
