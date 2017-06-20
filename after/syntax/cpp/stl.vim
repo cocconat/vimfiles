@@ -4,7 +4,7 @@ syn keyword cppSTLtype		uchar ushort uint ulong int8_t int16_t int32_t int64_t u
 syn match cUserBracketCharacter display "[~!&()[\]{},.<>?:;]"
 syn match cUserBracketCharacter display "(->)"
 syn match cUserSpecialCharacter display "=+*-\/%"
-syn match Private display "[_a-zA-Z]*_[ ;.(),:=-+]"
+syn match Private display "[_a-zA-Z]*_[ ;.(),:{=-]"
 
 command -nargs=+ HiLink hi def link <args>
 HiLink cppSTL				Identifier

@@ -20,10 +20,7 @@ Plugin 'file:///home/aquaresima/.vim/bundle/ctrlp'
 Plugin 'file:///home/aquaresima/.vim/bundle/delimitMate'
 Plugin 'file:///home/aquaresima/.vim/bundle/easymotion'
 Plugin 'file:///home/aquaresima/.vim/bundle/endwise'
-Plugin 'file:///home/aquaresima/.vim/bundle/fugitive'
 Plugin 'file:///home/aquaresima/.vim/bundle/gist'
-Plugin 'file:///home/aquaresima/.vim/bundle/git-runtime'
-Plugin 'file:///home/aquaresima/.vim/bundle/gitv'
 Plugin 'file:///home/aquaresima/.vim/bundle/gundo'
 Plugin 'file:///home/aquaresima/.vim/bundle/indexed-search'
 Plugin 'file:///home/aquaresima/.vim/bundle/localvimrc'
@@ -49,10 +46,14 @@ Plugin 'file:///home/aquaresima/.vim/bundle/vim-startify'
 Plugin 'file:///home/aquaresima/.vim/bundle/vimwiki'
 Plugin 'file:///home/aquaresima/.vim/bundle/webapi'
 Plugin 'file:///home/aquaresima/.vim/bundle/yankring'
+Plugin 'chiedo/vim-dr-replace'
 Plugin 'davidhalter/jedi'
 
 Plugin 'steffanc/cscopemaps.vim'
 
+Plugin 'tpope/vim-git'
+Plugin 'gregsexton/gitv'
+Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-repeat'
 Plugin 'oblitum/YouCompleteMe'
 Plugin 'ervandew/supertab'
@@ -62,6 +63,9 @@ Plugin 'vim-scripts/grep.vim'
 Plugin 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plugin 'junegunn/fzf.vim'
 Plugin 'spacehi.vim'
+Plugin 'CountJump'
+Plugin 'ingo-library'
+Plugin 'ConflictMotions'
 
 
 "All of your Plugins must be added before the following line
@@ -248,6 +252,9 @@ function! Run()
     call MakeInstall()
     make
 endfunction
+
+" launch python from vim
+nnoremap <F9> :exec '!python' shellescape(@%, 1)<cr>
 
 "command for bulding local tags
 command! Ctags :!ctags -R --sort=yes --c++-kinds=+p --fields=+iaS --extra=+q .
@@ -471,7 +478,7 @@ let g:fzf_colors =
   \ 'spinner': ['fg', 'Label'],
   \ 'header':  ['fg', 'Comment'] }
 
-colorscheme wombat
+colorscheme clarity
 
 "open a nice fzf window
 noremap <expr> <c-x><c-k> fzf#complete('cat /usr/share/dict/words')
