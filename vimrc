@@ -13,50 +13,58 @@ call vundle#begin()
 
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
-Plugin 'file:///home/cocco/.vim/bundle/a'
-Plugin 'file:///home/cocco/.vim/bundle/ack'
-Plugin 'file:///home/cocco/.vim/bundle/csapprox'
-Plugin 'file:///home/cocco/.vim/bundle/ctrlp'
-Plugin 'file:///home/cocco/.vim/bundle/delimitMate'
-Plugin 'file:///home/cocco/.vim/bundle/easymotion'
-Plugin 'file:///home/cocco/.vim/bundle/endwise'
-Plugin 'file:///home/cocco/.vim/bundle/fugitive'
-Plugin 'file:///home/cocco/.vim/bundle/gist'
-Plugin 'file:///home/cocco/.vim/bundle/git-runtime'
-Plugin 'file:///home/cocco/.vim/bundle/gitv'
-Plugin 'file:///home/cocco/.vim/bundle/gundo'
-Plugin 'file:///home/cocco/.vim/bundle/indexed-search'
-Plugin 'file:///home/cocco/.vim/bundle/localvimrc'
-Plugin 'file:///home/cocco/.vim/bundle/markdown-runtime'
-Plugin 'file:///home/cocco/.vim/bundle/matchit'
-Plugin 'file:///home/cocco/.vim/bundle/nerdcommenter'
-Plugin 'file:///home/cocco/.vim/bundle/nerdtree'
-Plugin 'file:///home/cocco/.vim/bundle/powerline'
-Plugin 'file:///home/cocco/.vim/bundle/ragtag'
-Plugin 'file:///home/cocco/.vim/bundle/rails'
-Plugin 'file:///home/cocco/.vim/bundle/repeat'
-Plugin 'file:///home/cocco/.vim/bundle/surround'
-Plugin 'file:///home/cocco/.vim/bundle/syntastic'
-Plugin 'file:///home/cocco/.vim/bundle/tabular'
-Plugin 'file:///home/cocco/.vim/bundle/tagbar'
-Plugin 'file:///home/cocco/.vim/bundle/ultisnips'
-Plugin 'file:///home/cocco/.vim/bundle/unimpaired'
-Plugin 'file:///home/cocco/.vim/bundle/vim-buffergator'
-Plugin 'file:///home/cocco/.vim/bundle/vim-dispatch'
-Plugin 'file:///home/cocco/.vim/bundle/vim-gitgutter'
-Plugin 'file:///home/cocco/.vim/bundle/vim-ruby'
-Plugin 'file:///home/cocco/.vim/bundle/vim-startify'
-Plugin 'file:///home/cocco/.vim/bundle/vimwiki'
-Plugin 'file:///home/cocco/.vim/bundle/webapi'
-Plugin 'file:///home/cocco/.vim/bundle/yankring'
-Plugin 'file:///home/cocco/.vim/bundle/YouCompleteMe'
+Plugin 'file:///home/aquaresima/.vim/bundle/a'
+Plugin 'file:///home/aquaresima/.vim/bundle/ack'
+Plugin 'file:///home/aquaresima/.vim/bundle/csapprox'
+Plugin 'file:///home/aquaresima/.vim/bundle/ctrlp'
+Plugin 'file:///home/aquaresima/.vim/bundle/delimitMate'
+Plugin 'file:///home/aquaresima/.vim/bundle/easymotion'
+Plugin 'file:///home/aquaresima/.vim/bundle/endwise'
+Plugin 'file:///home/aquaresima/.vim/bundle/gist'
+Plugin 'file:///home/aquaresima/.vim/bundle/gundo'
+Plugin 'file:///home/aquaresima/.vim/bundle/indexed-search'
+Plugin 'file:///home/aquaresima/.vim/bundle/localvimrc'
+Plugin 'file:///home/aquaresima/.vim/bundle/markdown-runtime'
+Plugin 'file:///home/aquaresima/.vim/bundle/matchit'
+Plugin 'file:///home/aquaresima/.vim/bundle/nerdcommenter'
+Plugin 'file:///home/aquaresima/.vim/bundle/nerdtree'
+Plugin 'file:///home/aquaresima/.vim/bundle/powerline'
+Plugin 'file:///home/aquaresima/.vim/bundle/ragtag'
+Plugin 'file:///home/aquaresima/.vim/bundle/rails'
+Plugin 'file:///home/aquaresima/.vim/bundle/repeat'
+Plugin 'file:///home/aquaresima/.vim/bundle/surround'
+Plugin 'file:///home/aquaresima/.vim/bundle/syntastic'
+Plugin 'file:///home/aquaresima/.vim/bundle/tabular'
+Plugin 'file:///home/aquaresima/.vim/bundle/tagbar'
+Plugin 'file:///home/aquaresima/.vim/bundle/ultisnips'
+Plugin 'file:///home/aquaresima/.vim/bundle/unimpaired'
+Plugin 'file:///home/aquaresima/.vim/bundle/vim-buffergator'
+Plugin 'file:///home/aquaresima/.vim/bundle/vim-dispatch'
+Plugin 'file:///home/aquaresima/.vim/bundle/vim-gitgutter'
+Plugin 'file:///home/aquaresima/.vim/bundle/vim-ruby'
+Plugin 'file:///home/aquaresima/.vim/bundle/vim-startify'
+Plugin 'file:///home/aquaresima/.vim/bundle/vimwiki'
+Plugin 'file:///home/aquaresima/.vim/bundle/webapi'
+Plugin 'file:///home/aquaresima/.vim/bundle/yankring'
+Plugin 'chiedo/vim-dr-replace'
+Plugin 'davidhalter/jedi'
+Plugin 'steffanc/cscopemaps.vim'
+Plugin 'tpope/vim-git'
+Plugin 'gregsexton/gitv'
+Plugin 'tpope/vim-fugitive'
+Plugin 'tpope/vim-repeat'
+Plugin 'oblitum/YouCompleteMe'
 Plugin 'ervandew/supertab'
-Plugin 'mattn/emmet-vim'
+Plugin 'vim-scripts/DoxygenToolkit.vim'
 Plugin 'vim-scripts/xptemplate'
 Plugin 'vim-scripts/grep.vim'
 Plugin 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plugin 'junegunn/fzf.vim'
 Plugin 'heavenshell/vim-pydocstring'
+Plugin 'spacehi.vim'
+Plugin 'CountJump'
+Plugin 'ingo-library'
+Plugin 'ConflictMotions'
 
 "All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -126,6 +134,7 @@ filetype indent on
 
 "turn on syntax highlighting
 syntax on
+let g:syntastic_python_checkers = ['pyflakes']
 
 "some stuff to get the mouse going in term
 set mouse=a
@@ -225,15 +234,26 @@ function! SetupMake()
     endif
 endfunction
 
+"override run command for CMake projects install
+function! MakeInstall()
+    if filereadable("CMakeLists.txt") && filereadable("./build/Makefile")
+        set makeprg=make\ install\ -j8\ -C\ build
+    else
+        set makeprg=make\ install\ -j8
+    endif
+endfunction
 function! Compile()
     call SetupMake()
     make
 endfunction
 
 function! Run()
-    call SetupMake()
-    make run
+    call MakeInstall()
+    make
 endfunction
+
+" launch python from vim
+nnoremap <F9> :exec '!python' shellescape(@%, 1)<cr>
 
 "command for bulding local tags
 command! Ctags :!ctags -R --sort=yes --c++-kinds=+p --fields=+iaS --extra=+q .
@@ -281,6 +301,8 @@ let g:UltiSnipsJumpForwardTrigger="<c-j>"
 let g:UltiSnipsJumpBackwardTrigger="<c-k>"
 
 "YouCompleteMe
+let g:ycm_python_binary_path = '/usr/bin/python3'
+
 let g:ycm_confirm_extra_conf=0
 nnoremap <leader>gl :YcmCompleter GoToDeclaration<CR>
 nnoremap <leader>gf :YcmCompleter GoToDefinition<CR>
@@ -326,8 +348,6 @@ if has("gui_running")
 else
     "colorscheme Tomorrow-Night-Bright
 endif
-
-colorscheme koehler
 
 "customize sign column
 au BufEnter * highlight SignColumn ctermbg=black
@@ -378,7 +398,10 @@ nnoremap <C-L> :nohlsearch<cr>
 
 "vim-instant-markdown
 let g:instant_markdown_autostart = 0
+<<<<<<< HEAD
 let g:user_emmet_leader_key='<C-F>'
+=======
+>>>>>>> 576a304b1beff62adf20b361dd2e1d5ae2852b0c
 
 
 "gvim tab handler
@@ -419,3 +442,57 @@ highlight Pmenu ctermfg=2 ctermbg=3 guifg=#ffffff guibg=#0000ff
 noremap <c-a> :A<CR>
 noremap <c-s> :wa<CR>
 colorscheme desert
+
+highlight Pmenu ctermfg=2 ctermbg=3 guifg=#ffffff guibg=#0000ff
+highlight BlueLine guibg=Blue
+autocmd BufReadPost quickfix match BlueLine /\%1l/
+autocmd BufReadPost quickfix nnoremap <buffer> <CR> :execute 'match BlueLine /\%' . line('.') . 'l/'<CR><CR>
+
+function! SomeCheck()
+   if filereadable("./cscope.out")
+        cs add "./cscope.out"
+   endif
+endfunction
+
+
+" This is the default extra key bindings
+let g:fzf_action = {
+  \ 'ctrl-t': 'tab split',
+  \ 'ctrl-x': 'split',
+  \ 'ctrl-v': 'vsplit' }
+
+" Default fzf layout
+" - down / up / left / right
+let g:fzf_layout = { 'down': '~40%' }
+
+" In Neovim, you can set up fzf window using a Vim command
+let g:fzf_layout = { 'window': 'enew' }
+let g:fzf_layout = { 'window': '-tabnew' }
+
+" Customize fzf colors to match your color scheme
+let g:fzf_colors =
+\ { 'fg':      ['fg', 'Normal'],
+  \ 'bg':      ['bg', 'Normal'],
+  \ 'hl':      ['fg', 'Comment'],
+  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+  \ 'hl+':     ['fg', 'Statement'],
+  \ 'info':    ['fg', 'PreProc'],
+  \ 'prompt':  ['fg', 'Conditional'],
+  \ 'pointer': ['fg', 'Exception'],
+  \ 'marker':  ['fg', 'Keyword'],
+  \ 'spinner': ['fg', 'Label'],
+  \ 'header':  ['fg', 'Comment'] }
+
+colorscheme clarity
+
+"open a nice fzf window
+noremap <expr> <c-x><c-k> fzf#complete('cat /usr/share/dict/words')
+"save all open
+noremap  <c-q> :wa<CR>
+noremap  <c-a> :A <CR>
+
+nmap <c-t> "+gP
+imap <c-t> <ESC><c-t>i
+vmap <c-y> "+y
+set guifont=inconsolata\ 13
