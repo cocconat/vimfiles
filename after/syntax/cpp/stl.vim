@@ -5,6 +5,8 @@ syn match cUserBracketCharacter display "[~!&()[\]{},.<>?:;]"
 syn match cUserBracketCharacter display "(->)"
 syn match cUserSpecialCharacter display "=+*-\/%"
 syn match Private display "[_a-zA-Z]*_[ ;.(),:{=-]"
+hi def link cUserBracketCharacter Constant
+hi def link cUserSpecialCharacter Question
 
 command -nargs=+ HiLink hi def link <args>
 HiLink cppSTL				Identifier

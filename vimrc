@@ -6,65 +6,93 @@ set nocompatible
 filetype off
 
 "set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
+set rtp+=/home/cocco/.vim/bundle/Vundle.vim
 call vundle#begin()
 " alternatively, pass a path where Vundle should install plugins
 "call vundle#begin('~/some/path/here')
 
 " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
-Plugin 'file:///home/aquaresima/.vim/bundle/a'
-Plugin 'file:///home/aquaresima/.vim/bundle/ack'
-Plugin 'file:///home/aquaresima/.vim/bundle/csapprox'
-Plugin 'file:///home/aquaresima/.vim/bundle/ctrlp'
-Plugin 'file:///home/aquaresima/.vim/bundle/delimitMate'
-Plugin 'file:///home/aquaresima/.vim/bundle/easymotion'
-Plugin 'file:///home/aquaresima/.vim/bundle/endwise'
-Plugin 'file:///home/aquaresima/.vim/bundle/gist'
-Plugin 'file:///home/aquaresima/.vim/bundle/gundo'
-Plugin 'file:///home/aquaresima/.vim/bundle/indexed-search'
-Plugin 'file:///home/aquaresima/.vim/bundle/localvimrc'
-Plugin 'file:///home/aquaresima/.vim/bundle/markdown-runtime'
-Plugin 'file:///home/aquaresima/.vim/bundle/matchit'
-Plugin 'file:///home/aquaresima/.vim/bundle/nerdcommenter'
-Plugin 'file:///home/aquaresima/.vim/bundle/nerdtree'
-Plugin 'file:///home/aquaresima/.vim/bundle/powerline'
-Plugin 'file:///home/aquaresima/.vim/bundle/ragtag'
-Plugin 'file:///home/aquaresima/.vim/bundle/rails'
-Plugin 'file:///home/aquaresima/.vim/bundle/repeat'
-Plugin 'file:///home/aquaresima/.vim/bundle/surround'
-Plugin 'file:///home/aquaresima/.vim/bundle/syntastic'
-Plugin 'file:///home/aquaresima/.vim/bundle/tabular'
-Plugin 'file:///home/aquaresima/.vim/bundle/tagbar'
-Plugin 'file:///home/aquaresima/.vim/bundle/ultisnips'
-Plugin 'file:///home/aquaresima/.vim/bundle/unimpaired'
-Plugin 'file:///home/aquaresima/.vim/bundle/vim-buffergator'
-Plugin 'file:///home/aquaresima/.vim/bundle/vim-dispatch'
-Plugin 'file:///home/aquaresima/.vim/bundle/vim-gitgutter'
-Plugin 'file:///home/aquaresima/.vim/bundle/vim-ruby'
-Plugin 'file:///home/aquaresima/.vim/bundle/vim-startify'
-Plugin 'file:///home/aquaresima/.vim/bundle/vimwiki'
-Plugin 'file:///home/aquaresima/.vim/bundle/webapi'
-Plugin 'file:///home/aquaresima/.vim/bundle/yankring'
+"switch from cpp to hpp files
+Plugin 'vim-scripts/a.vim'
+"colors for vim from cmdline
+"Plugin 'vim-scripts/csapprox.vim'
+"useful tool for file and tag search
+Plugin 'vim-scripts/ctrlp.vim'
+Plugin 'tacahiroy/ctrlp-funky'
+
+"Move fast into files with
+Plugin 'easymotion/vim-easymotion'
+Plugin 'gcmt/wildfire.vim'
+Plugin 'vim-scripts/endwise.vim'
+Plugin 'tpope/vim-surround'
+Plugin 'vim-scripts/delimitMate.vim'
+"align text easily
+Plugin 'godlygeek/tabular'
+
+Plugin 'vim-scripts/gist.vim'
+Plugin 'rhysd/conflict-marker.vim'
+
+Plugin 'vim-scripts/ragtag.vim'
+Plugin 'vim-scripts/rails.vim'
+Plugin 'vim-scripts/repeat.vim'
+Plugin 'mbbill/undotree'
+
+
+Plugin 'henrik/vim-indexed-search'
+Plugin 'embear/vim-localvimrc'
+"Plugin 'vim-scripts/markdown-runtime.vim'
+Plugin 'adelarsq/vim-matchit'
+Plugin 'scrooloose/nerdcommenter'
+Plugin 'scrooloose/nerdtree'
+Plugin 'Lokaltog/vim-powerline'
+Plugin 'majutsushi/tagbar'
+
+Plugin 'sirver/ultisnips'
+Plugin 'vim-syntastic/syntastic'
+
+Plugin 'vim-scripts/unimpaired.vim'
+Plugin 'tpope/vim-dispatch'
+Plugin 'airblade/vim-gitgutter'
+Plugin 'mhinz/vim-startify'
+
+"yank ring keeps memory of copy pasted lines
+Plugin 'vim-scripts/YankRing.vim'
+Plugin 'mileszs/ack.vim'
+Plugin 'morhetz/gruvbox'
 Plugin 'chiedo/vim-dr-replace'
 Plugin 'davidhalter/jedi'
 Plugin 'steffanc/cscopemaps.vim'
 Plugin 'tpope/vim-git'
-Plugin 'gregsexton/gitv'
 Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-repeat'
 Plugin 'oblitum/YouCompleteMe'
 Plugin 'ervandew/supertab'
 Plugin 'vim-scripts/DoxygenToolkit.vim'
 Plugin 'vim-scripts/xptemplate'
+Plugin 'jeetsukumaran/vim-buffergator'
+Plugin 'vim-scripts/L9'
+Plugin 'vim-scripts/FuzzyFinder'
 Plugin 'vim-scripts/grep.vim'
-Plugin 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plugin 'vim-scripts/sessionman.vim'
+
+Plugin 'vim-latex/vim-latex'
+"Plugin 'robince/pythoncomplete.vim'
+Plugin 'python-mode/python-mode'
+Plugin 'tell-k/vim-autopep8'
+"https://github.com/python-mode/python-mode
+", { 'dir': '~/.fzf', 'do': './install --all' }
+"fuzzy search instrument with F7
+Plugin 'junegunn/fzf'
 Plugin 'junegunn/fzf.vim'
+"Comments
 Plugin 'heavenshell/vim-pydocstring'
 Plugin 'spacehi.vim'
 Plugin 'CountJump'
 Plugin 'ingo-library'
 Plugin 'ConflictMotions'
+"Thesaurus
+Plugin 'Ron89/thesaurus_query.vim'
 
 "All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -73,7 +101,6 @@ filetype plugin indent on    " required
 "allow backspacing over everything in insert mode
 set backspace=indent,eol,start
 
-colorscheme desert
 "store lots of :cmdline history
 set history=1000
 
@@ -95,6 +122,11 @@ set hlsearch    "hilight searches by default
 
 set wrap        "dont wrap lines
 "set linebreak   "wrap lines at convenient points
+
+"move swapfiles
+set backupdir=~/.vim/backup//
+set directory=~/.vim/swap//
+set undodir=~/.vim/undo//
 
 if v:version >= 703
     "undo settings
@@ -199,11 +231,11 @@ autocmd filetype svn,*commit* setlocal spell
 "leave them - otherwise the buffer list gets poluted
 "
 "add a mapping on .. to view parent tree
-autocmd BufReadPost fugitive://* set bufhidden=delete
-autocmd BufReadPost fugitive://*
-  \ if fugitive#buffer().type() =~# '^\%(tree\|blob\)$' |
-  \   nnoremap <buffer> .. :edit %:h<CR> |
-  \ endif
+"autocmd BufReadPost fugitive://* set bufhidden=delete
+"autocmd BufReadPost fugitive://*
+ " \ if fugitive#buffer().type() =~# '^\%(tree\|blob\)$' |
+ " \   nnoremap <buffer> .. :edit %:h<CR> |
+ " \ endif
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "start my additions
@@ -217,11 +249,12 @@ set t_ti= t_te=
 set shellpipe=2>&1\ \|\ tee\ %s;exit\ \${PIPESTATUS[0]}
 
 "disable backup since most stuff are in git
-set nobackup
+
+set backupdir =/home/cocco/.vim/backup/
+
 
 "disable bells
 set visualbell t_vb=
-
 "more include paths for gf command
 set path+=/usr/include/c++/4.7.2
 
@@ -254,6 +287,11 @@ endfunction
 
 " launch python from vim
 nnoremap <F9> :exec '!python' shellescape(@%, 1)<cr>
+" Enable breakpoints plugin
+let g:pymode_breakpoint = 1
+let g:pymode_breakpoint_key = '<leader>b'
+let g:pymode_breakpoint_bind = '<leader>k'
+
 
 "command for bulding local tags
 command! Ctags :!ctags -R --sort=yes --c++-kinds=+p --fields=+iaS --extra=+q .
@@ -289,6 +327,12 @@ let g:localvimrc_ask = 0
 "fix yaking conflict with ctrlp
 let g:yankring_replace_n_pkey = '<Char-172>'
 let g:yankring_replace_n_nkey = '<Char-174>'
+nnoremap <Leader>fu :CtrlPFunky<Cr>
+" narrow the list down with a word under cursor
+nnoremap <Leader>fU :execute 'CtrlPFunky ' . expand('<cword>')<Cr>
+
+"ctrlp confs
+let g:ctrlp_follow_symlinks=1
 
 "buffergator
 let g:buffergator_viewport_split_policy="T"
@@ -302,24 +346,38 @@ let g:UltiSnipsJumpBackwardTrigger="<c-k>"
 
 "YouCompleteMe
 let g:ycm_python_binary_path = '/usr/bin/python3'
-
+let g:ycm_always_populate_location_list = 1
 let g:ycm_confirm_extra_conf=0
 nnoremap <leader>gl :YcmCompleter GoToDeclaration<CR>
 nnoremap <leader>gf :YcmCompleter GoToDefinition<CR>
 nnoremap <leader>gg :YcmCompleter GoToDefinitionElseDeclaration<CR>
 nnoremap <F11> :YcmForceCompileAndDiagnostics <CR>
-"ctrlp confs
-let g:ctrlp_follow_symlinks=1
 "fzf
 nnoremap <F7> :Tags <CR>
+
 "easymotion
 hi link EasyMotionTarget ErrorMsg
 hi link EasyMotionShade  Comment
+" <Leader>f{char} to move to {char}
+map  <Leader>f <Plug>(easymotion-bd-f)
+nmap  <Leader>f <Plug>(easymotion-overwin-f)
+
+" s{char}{char} to move to {char}{char}
+nmap s <Plug>(easymotion-overwin-f2)
+
+" Move to line
+map <Leader>L <Plug>(easymotion-bd-jk)
+nmap <Leader>L <Plug>(easymotion-overwin-line)
+
+" Move to word
+map  <Leader>w <Plug>(easymotion-bd-w)
+nmap <Leader>w <Plug>(easymotion-overwin-w)
 
 "gutter
 let g:gitgutter_realtime = 0
 let g:gitgutter_eager = 0
-let g:gitgutter_sign_column_always = 1
+set signcolumn=yes
+
 
 "treat std include files as cpp
 au BufEnter /usr/include/c++/* setf cpp
@@ -331,23 +389,9 @@ autocmd BufNewFile,BufRead *.h set formatprg=astyle\ -A2s4SOclk1
 "auto remove trailing whitespaces
 autocmd BufWritePre * :%s/\s\+$//e
 
-if has("gui_running")
-    "remove right scroll bar
-    set guioptions-=r
-    "turn off needless toolbar on gvim
-    set guioptions-=T
+colorscheme gruvbox
+set background=dark
 
-    "remove menubar
-    "set guioptions-=m
-
-    "the lovely github theme.
-    "colorscheme github
-    "colorscheme Tomorrow-Night-Bright
-
-    set guifont=Monospace\ 10
-else
-    "colorscheme Tomorrow-Night-Bright
-endif
 
 "customize sign column
 au BufEnter * highlight SignColumn ctermbg=black
@@ -373,7 +417,6 @@ nnoremap gR gD:%s/<C-R>///gc<left><left><left>
 nnoremap <f1> :BuffergatorToggle<cr>
 nnoremap <f2> :NERDTreeToggle<cr>
 nnoremap <f3> :TagbarToggle<cr>
-nnoremap <f4> :GundoToggle<cr>
 map <f5> :call Compile()<CR>
 map <f6> :call Run()<CR>
 
@@ -396,12 +439,9 @@ map <C-s> :w<cr>
 "clear highlight
 nnoremap <C-L> :nohlsearch<cr>
 
-"vim-instant-markdown
-let g:instant_markdown_autostart = 0
-<<<<<<< HEAD
-let g:user_emmet_leader_key='<C-F>'
-=======
->>>>>>> 576a304b1beff62adf20b361dd2e1d5ae2852b0c
+let g:markdown_fenced_languages = ['html', 'python', 'bash=sh']
+
+
 
 
 "gvim tab handler
@@ -441,7 +481,6 @@ nnoremap <C-n> :call NumberToggle()<cr>
 highlight Pmenu ctermfg=2 ctermbg=3 guifg=#ffffff guibg=#0000ff
 noremap <c-a> :A<CR>
 noremap <c-s> :wa<CR>
-colorscheme desert
 
 highlight Pmenu ctermfg=2 ctermbg=3 guifg=#ffffff guibg=#0000ff
 highlight BlueLine guibg=Blue
@@ -484,7 +523,6 @@ let g:fzf_colors =
   \ 'spinner': ['fg', 'Label'],
   \ 'header':  ['fg', 'Comment'] }
 
-colorscheme clarity
 
 "open a nice fzf window
 noremap <expr> <c-x><c-k> fzf#complete('cat /usr/share/dict/words')
@@ -495,4 +533,14 @@ noremap  <c-a> :A <CR>
 nmap <c-t> "+gP
 imap <c-t> <ESC><c-t>i
 vmap <c-y> "+y
-set guifont=inconsolata\ 13
+set guifont=inconsolata\ 11
+
+nnoremap <Leader>cs :ThesaurusQueryReplaceCurrentWord<CR>
+
+" delete without yanking
+nnoremap <leader>d "_d
+vnoremap <leader>d "_d
+
+" replace currently selected text with default register
+" without yanking it
+vnoremap <leader>p "_dP
